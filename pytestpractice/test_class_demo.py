@@ -1,0 +1,20 @@
+import pytest
+from pages.page_demo import SomeClassToTest
+
+
+@pytest.mark.usefixtures("one_time_setup", "setup")
+class TestClassDemo:
+
+    @pytest.fixture(autouse=True)
+    def class_setup(self, one_time_setup):
+        self.abc = SomeClassToTest(self.value)
+
+    def test_method_a(self):
+        result = self.abc.sum_numbers(45, 55)
+        assert result == 110
+        print("Running method a")
+
+    def test_method_b(self):
+        result = self.abc.sum_numbers(2, 8)
+        assert result == 20
+        print("Running method b")
